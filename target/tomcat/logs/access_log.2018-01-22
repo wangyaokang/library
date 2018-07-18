@@ -1,0 +1,6 @@
+127.0.0.1 - - [22/Jan/2018:11:49:45 +0800] "POST /library/api/book HTTP/1.1" 200 70 http-bio-8080-exec-1 1039
+127.0.0.1 - - [22/Jan/2018:13:28:00 +0800] "POST /library/api/book HTTP/1.1" 200 302 http-bio-8080-exec-1 635
+127.0.0.1 - - [22/Jan/2018:13:46:08 +0800] "POST /library/api/book HTTP/1.1" 200 302 http-bio-8080-exec-3 10
+127.0.0.1 - - [22/Jan/2018:13:54:02 +0800] "POST /library/api/book HTTP/1.1" 200 70 http-bio-8080-exec-5 80
+127.0.0.1 - - [22/Jan/2018:13:58:01 +0800] "POST /library/api/book HTTP/1.1" 200 304 http-bio-8080-exec-1 514
+127.0.0.1 - - [22/Jan/2018:14:08:07 +0800] "POST /library/api/book HTTP/1.1" 200 304 http-bio-8080-exec-3 7

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyk.library.persistence.BookMapper">
+
+	<resultMap type="com.wyk.library.model.Book" id="resultMap">
+		<id property="id" column="id" javaType="long" />
+		<result property="bookNo" column="book_no" />
+		<result property="bookName" column="book_name" />
+		<result property="author" column="author" />
+		<result property="publisher" column="publisher" />
+		<result property="location" column="location" />
+		<result property="synopsis" column="synopsis" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<sql id="selectSQL">
+		select * from tb_book
+	</sql>
+	
+	<!-- Base Mapper -->
+	
+	<select id="get" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="bookNo != null">
+				and book_no = #{bookNo}
+			</if>
+		</where>
+		limit 0,1
+	</select>
+
+	<select id="query" resultMap="resultMap">
+		<include refid="selectSQL" />
+	</select>
+
+	<select id="queryByMap" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+			<if test="bookNo != null">
+				book_no = #{bookNo}
+			</if>
+			<if test="author != null">
+				and author = #{author}
+			</if>
+			<if test="publisher != null">
+				and publisher = #{publisher}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.wyk.library.model.Book" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_book (book_no,
+		book_name, author, publisher, location, synopsis)
+		values
+		(#{bookNo}, #{bookName}, #{author}, 
+		 #{publisher}, #{location}, #{synopsis})
+	</insert>
+
+	<update id="update" parameterType="com.wyk.library.model.Book">
+		update tb_book set
+		book_no=#{bookNo}, book_name=#{bookName},
+		author=#{author}, publisher=#{publisher}, 
+		location=#{location}, synopsis=#{synopsis}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.wyk.library.model.Book">
+		delete from tb_book
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</delete>
+
+	<!-- End of Base Mapper -->
+	
+	<select id="queryBooksByMap" parameterType="hashmap" resultMap="resultMap">
+	    <include refid="selectSQL" />
+	    <where>
+	        <if test="bookName != null">
+	            book_name like CONCAT('%','${bookName}','%' )
+	        </if>
+	        <if test="author != null">
+	            author like CONCAT('%','${author}','%' )
+	        </if>
+	        <if test="publisher != null">
+	            publisher like CONCAT('%','${publisher}','%' )
+	        </if>
+	        <if test="synopsis != null">
+	            synopsis like CONCAT('%','${synopsis}','%' )
+	        </if>
+	    </where>
+	</select>
+
+</mapper>

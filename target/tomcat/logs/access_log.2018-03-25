@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:01 +0800] "GET /library/ HTTP/1.1" 200 1849 http-bio-8080-exec-1 176
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /library/img/black.png HTTP/1.1" 304 - http-bio-8080-exec-2 299
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /library/css/login.css HTTP/1.1" 304 - http-bio-8080-exec-7 380
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /library/img/login_username.png HTTP/1.1" 304 - http-bio-8080-exec-9 42
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /library/img/green.png HTTP/1.1" 304 - http-bio-8080-exec-3 52
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /library/img/login_pwd.png HTTP/1.1" 304 - http-bio-8080-exec-8 64
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:20:02 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-8 0
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:22:58 +0800] "GET /library/ HTTP/1.1" 200 1849 http-bio-8080-exec-9 2
+0:0:0:0:0:0:0:1 - - [25/Mar/2018:09:22:59 +0800] "GET /library/ HTTP/1.1" 200 1849 http-bio-8080-exec-9 1

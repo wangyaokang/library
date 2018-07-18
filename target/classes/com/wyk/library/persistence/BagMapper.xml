@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyk.library.persistence.BagMapper">
+
+	<resultMap type="com.wyk.library.model.Bag" id="resultMap">
+		<id property="id" column="id" javaType="long" />
+		<result property="status" column="status" />
+		<association property="user" javaType="com.wyk.library.model.User">
+			<id property="id" column="user_id" javaType="long"/>
+			<result property="name" column="user_name" />
+			<result property="mobile" column="user_mobile" />
+		</association>
+		<association property="book" javaType="com.wyk.library.model.Book">
+			<id property="id" column="book_id" javaType="long"/>
+			<result property="bookNo" column="book_no" />
+			<result property="bookName" column="book_name" />
+			<result property="author" column="book_author" />
+			<result property="publisher" column="book_publisher" />
+			<result property="synopsis" column="book_synopsis" />
+		</association>
+	</resultMap>
+	
+	<sql id="selectSQL">
+		select bag.*, u.id as user_id, u.name as user_name, u.mobile as user_mobile,
+			b.book_no as book_no, b.book_name as book_name, b.author as book_author, 
+			b.publisher as book_publisher, b.synopsis as book_synopsis 
+			from tb_bag bag
+			inner join tb_user u on u.id = bag.user_id
+			inner join tb_book b on b.id = bag.book_id
+	</sql>
+	
+	<!-- Base Mapper -->
+	
+	<select id="get" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+			<if test="id != null">
+				bag.id = #{id}
+			</if>
+		</where>
+		limit 0,1
+	</select>
+
+	<select id="query" resultMap="resultMap">
+		<include refid="selectSQL" />
+	</select>
+
+	<select id="queryByMap" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+		    <if test="bookId != null">
+		        b.id = #{bookId}
+		    </if>
+		    <if test="userId != null">
+		        and u.id = #{userId}
+		    </if>
+		    <if test="mobile != null">
+		        and u.mobile = #{mobile}
+		    </if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.wyk.library.model.Bag" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_bag (user_id, book_id)
+		values
+		(#{user.id}, #{book.id})
+	</insert>
+
+	<update id="update" parameterType="com.wyk.library.model.Bag">
+		update tb_bag set
+		user_id=#{user.id}, book_id=#{book.id},
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.wyk.library.model.Bag">
+		delete from tb_bag
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</delete>
+
+	<!-- End of Base Mapper -->
+	
+</mapper>

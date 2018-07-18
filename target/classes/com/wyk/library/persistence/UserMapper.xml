@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wyk.library.persistence.UserMapper">
+
+	<resultMap type="com.wyk.library.model.User" id="resultMap">
+		<id property="id" column="id" javaType="long" />
+		<result property="name" column="name" />
+		<result property="mobile" column="mobile" />
+		<result property="regTime" column="reg_time" />
+		<result property="nickname" column="nickname" />
+		<result property="sex" column="sex" />
+		<result property="protraitUrl" column="protrait_url" />
+		<result property="createTime" column="create_time" />
+		<result property="modifyTime" column="modify_time" />
+	</resultMap>
+
+	<sql id="selectSQL">
+		select * from tb_user
+	</sql>
+
+	<!-- Base Mapper -->
+
+	<select id="get" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile}
+			</if>
+			<if test="nickname != null">
+				and nickname = #{nickname}
+			</if>
+		</where>
+		limit 0,1
+	</select>
+
+	<select id="query" resultMap="resultMap">
+		<include refid="selectSQL" />
+	</select>
+
+	<select id="queryByMap" parameterType="hashmap" resultMap="resultMap">
+		<include refid="selectSQL" />
+		<where>
+			<if test="name != null">
+				name = #{name}
+			</if>
+			<if test="password != null">
+				and password = #{password}
+			</if>
+			<if test="mobile != null">
+				and mobile = #{mobile}
+			</if>
+			<if test="sex != null">
+				and sex = #{sex}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insert" parameterType="com.wyk.library.model.User" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user (name,
+		password, mobile, nickname, sex, protrait_url, status)
+		values
+		(#{name}, #{password}, #{mobile}, 
+		 #{nickname}, #{sex}, #{protraitUrl}, #{status})
+	</insert>
+
+	<update id="update" parameterType="com.wyk.library.model.User">
+		update tb_user set
+		name=#{name}, mobile=#{mobile},
+		nickname=#{nickname}, sex=#{sex}, 
+		protrait_url=#{protraitUrl}, status=#{status}
+		where id = #{id}
+	</update>
+
+	<delete id="delete" parameterType="com.wyk.library.model.User">
+		delete from tb_user
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+		</where>
+	</delete>
+
+	<!-- End of Base Mapper -->
+
+</mapper>
